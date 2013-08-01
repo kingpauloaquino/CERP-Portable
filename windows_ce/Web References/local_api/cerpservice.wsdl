@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://cerp.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://cerp.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://cerp.com/">
+      <s:element name="DBConTest">
+        <s:complexType />
+      </s:element>
+      <s:element name="DBConTestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DBConTestResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStockResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="barcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStockItemsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdjustStockItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="inventory_id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="qty" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="remarks" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdjustStockItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AdjustStockItemResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveries">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetDeliveriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveriesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="delivery_id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeliveryItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeliveryItemsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveDelivery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="delivery_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="invoice" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receipt" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lot_no" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="receiving_remarks" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="items" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveDeliveryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveDeliveryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaterialIssuance">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetMaterialIssuanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMaterialIssuanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaterialIssuanceItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="request_id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaterialIssuanceItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMaterialIssuanceItemsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DBConTestSoapIn">
+    <wsdl:part name="parameters" element="tns:DBConTest" />
+  </wsdl:message>
+  <wsdl:message name="DBConTestSoapOut">
+    <wsdl:part name="parameters" element="tns:DBConTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStockSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStock" />
+  </wsdl:message>
+  <wsdl:message name="GetStockSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStockItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStockItems" />
+  </wsdl:message>
+  <wsdl:message name="GetStockItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStockItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="AdjustStockItemSoapIn">
+    <wsdl:part name="parameters" element="tns:AdjustStockItem" />
+  </wsdl:message>
+  <wsdl:message name="AdjustStockItemSoapOut">
+    <wsdl:part name="parameters" element="tns:AdjustStockItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveries" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeliveryItems" />
+  </wsdl:message>
+  <wsdl:message name="GetDeliveryItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeliveryItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveDeliverySoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveDelivery" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveDeliverySoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMaterialIssuanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMaterialIssuance" />
+  </wsdl:message>
+  <wsdl:message name="GetMaterialIssuanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMaterialIssuanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMaterialIssuanceItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMaterialIssuanceItems" />
+  </wsdl:message>
+  <wsdl:message name="GetMaterialIssuanceItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMaterialIssuanceItemsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CERPServiceSoap">
+    <wsdl:operation name="DBConTest">
+      <wsdl:input message="tns:DBConTestSoapIn" />
+      <wsdl:output message="tns:DBConTestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDetails">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Material/Product Details</wsdl:documentation>
+      <wsdl:input message="tns:GetDetailsSoapIn" />
+      <wsdl:output message="tns:GetDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Material/Product Total Stock</wsdl:documentation>
+      <wsdl:input message="tns:GetStockSoapIn" />
+      <wsdl:output message="tns:GetStockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return All Material/Product Stock Details</wsdl:documentation>
+      <wsdl:input message="tns:GetStockItemsSoapIn" />
+      <wsdl:output message="tns:GetStockItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AdjustStockItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Adjust material's current warehouse stock quantity</wsdl:documentation>
+      <wsdl:input message="tns:AdjustStockItemSoapIn" />
+      <wsdl:output message="tns:AdjustStockItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return All Open Deliveries</wsdl:documentation>
+      <wsdl:input message="tns:GetDeliveriesSoapIn" />
+      <wsdl:output message="tns:GetDeliveriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Delivery Items</wsdl:documentation>
+      <wsdl:input message="tns:GetDeliveryItemsSoapIn" />
+      <wsdl:output message="tns:GetDeliveryItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveDelivery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Receive Deliveries</wsdl:documentation>
+      <wsdl:input message="tns:ReceiveDeliverySoapIn" />
+      <wsdl:output message="tns:ReceiveDeliverySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Material Request Issuances</wsdl:documentation>
+      <wsdl:input message="tns:GetMaterialIssuanceSoapIn" />
+      <wsdl:output message="tns:GetMaterialIssuanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuanceItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Material Request Issuance Items and Lot Nos.</wsdl:documentation>
+      <wsdl:input message="tns:GetMaterialIssuanceItemsSoapIn" />
+      <wsdl:output message="tns:GetMaterialIssuanceItemsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CERPServiceSoap" type="tns:CERPServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DBConTest">
+      <soap:operation soapAction="http://cerp.com/DBConTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDetails">
+      <soap:operation soapAction="http://cerp.com/GetDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <soap:operation soapAction="http://cerp.com/GetStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockItems">
+      <soap:operation soapAction="http://cerp.com/GetStockItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdjustStockItem">
+      <soap:operation soapAction="http://cerp.com/AdjustStockItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveries">
+      <soap:operation soapAction="http://cerp.com/GetDeliveries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryItems">
+      <soap:operation soapAction="http://cerp.com/GetDeliveryItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveDelivery">
+      <soap:operation soapAction="http://cerp.com/ReceiveDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuance">
+      <soap:operation soapAction="http://cerp.com/GetMaterialIssuance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuanceItems">
+      <soap:operation soapAction="http://cerp.com/GetMaterialIssuanceItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CERPServiceSoap12" type="tns:CERPServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DBConTest">
+      <soap12:operation soapAction="http://cerp.com/DBConTest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDetails">
+      <soap12:operation soapAction="http://cerp.com/GetDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <soap12:operation soapAction="http://cerp.com/GetStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockItems">
+      <soap12:operation soapAction="http://cerp.com/GetStockItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AdjustStockItem">
+      <soap12:operation soapAction="http://cerp.com/AdjustStockItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveries">
+      <soap12:operation soapAction="http://cerp.com/GetDeliveries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeliveryItems">
+      <soap12:operation soapAction="http://cerp.com/GetDeliveryItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveDelivery">
+      <soap12:operation soapAction="http://cerp.com/ReceiveDelivery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuance">
+      <soap12:operation soapAction="http://cerp.com/GetMaterialIssuance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMaterialIssuanceItems">
+      <soap12:operation soapAction="http://cerp.com/GetMaterialIssuanceItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CERPService">
+    <wsdl:port name="CERPServiceSoap" binding="tns:CERPServiceSoap">
+      <soap:address location="http://172.20.10.4/cerp-ws/cerpservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CERPServiceSoap12" binding="tns:CERPServiceSoap12">
+      <soap12:address location="http://172.20.10.4/cerp-ws/cerpservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

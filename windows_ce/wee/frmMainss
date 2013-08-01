@@ -1,0 +1,142 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Text;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Microsoft.WindowsCE.Forms;
+using BCD.net;
+using windows_ce.local_api;
+
+namespace windows_ce
+{
+    public partial class frmMain : Form
+    {
+        // Create an instance of MsgWindow, a derived MessageWindow class.
+        MsgWindow MsgWin;
+
+        const byte SCAN_MESSAGE = 0x1A;
+        const byte SCAN_KEYDOWN = 0x1B;
+        const byte SCAN_KEYUP = 0x1C;
+        const byte SCAN_GOTBARCODE = 0x1D;
+
+        public BCD.net.CBScanner BScanner = new BCD.net.CBScanner();
+
+        public bool bContMode;   //K04232009++
+        private long buzzer_pb_ms;
+
+        public frmMain()
+        {
+            InitializeComponent();
+            this.MsgWin = new MsgWindow(this);
+        }
+
+        private void InitPara()
+        {
+            //this.BScanner.AppControlBarcode(0x3);
+            //this.BScanner.StartBarcodeScan();
+            this.BScanner.InitBarcode();
+        }
+
+        private void DeInitPara()
+        {
+            this.BScanner.CloseBarcode();
+            //this.BScanner.AppControlBarcode(0x1);
+            //this.BScanner.StopBarcodeScan();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(0, 70);
+            if (config.Username == string.Empty)
+            {
+                frmLogin lg = new frmLogin();
+                lg.ShowDialog();
+            }
+
+            InitPara();
+            bContMode = false;  //K04232009++
+
+            //lblUsername.Text = "Welcome " + config.Username;
+        }
+
+        private void scantest_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyValue == SCAN_MESSAGE)
+            //{
+            //    this.textBox1.Text = null;
+            //    this.textBox2.Text = null;
+            //    this.textBox1.Focus();
+            //    this.BScanner.StartBarcodeScan();
+            //}
+        }
+
+        private void scantest_KeyUp(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyValue == SCAN_MESSAGE)
+            //{
+            //    this.BScanner.StopBarcodeScan();
+            //    this.textBox1.Text = this.BScanner.GetPrefix() + this.BScanner.GetBarcodeData() + this.BScanner.GetSuffix();
+            //    this.textBox2.Text = this.BScanner.GetBarcodeType();
+            //}
+        }
+        public void SendMSG(byte x)
+        {
+            switch (x)
+            {
+                case SCAN_KEYDOWN:
+                    this.textBox1.Text = null;
+                    this.textBox1.Focus();
+                    //this.BScanner.StartBarcodeScan();
+                    break;
+
+                case SCAN_KEYUP:
+                    //this.BScanner.StopBarcodeScan();
+                    break;
+
+                case SCAN_GOTBARCODE:
+                    //this.textBox1.Text = this.BScanner.GetPrefix() + this.BScanner.GetBarcodeData() + this.BScanner.GetSuffix();
+                    this.textBox1.Text = this.BScanner.GetBarcodeData();
+                    //this.textBox2.Text = this.BScanner.GetBarcodeType();
+                    config.Barcode = textBox1.Text;
+                    //K04232009++ start
+                    /*
+                    if (bContMode)
+                    {
+                        this.timer1.Enabled = true;
+                        this.BScanner.StartBarcodeScan();
+                    }
+                    */
+                    //K04232009++ end
+                    break;
+
+            }
+        }
+        mobile_api api = new mobile_api();
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(api.sample_string());
+            this.Dispose();
+            this.Close();
+        }
+
+        private void btnProceed_Click(object sender, EventArgs e)
+        {
+            if (api.barcode_isExsit(config.Barcode))
+            {
+                frmItems view = new frmItems();
+                view.Show();
+            }
+            else
+            {
+                MessageBox.Show("barcode isn't exist!", "ALERT");
+            }
+        }
+        //20090601 sdk++ end
+    }
+}
