@@ -33,14 +33,6 @@ namespace windows_ce
 
             this.Dispose();
             this.Close();
-            //if (Get_Deliveries.check_received(id))
-            //{
-                
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Oops, this is comp");
-            //}
         }
 
         private void btnSave_Click(object sender, EventArgs e)
