@@ -43,6 +43,16 @@ namespace windows_ce
             return String.Format("{0:c}", amount).Replace("$", "");
         }
 
+        public static string DefaultDateFormat(DateTime dt)
+        {
+            return dt.ToString("yyyy-MM-dd");
+        }
+
+        public static string DefaultDateTimeFormat(DateTime dt)
+        {
+            return dt.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
         public static DataTable get(string xmlString)
         {
             StringReader sr = new StringReader(xmlString);

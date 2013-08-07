@@ -31,7 +31,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnDetails = new System.Windows.Forms.Button();
             this.btnDeliveries = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnMaterialIssuance = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -65,14 +65,15 @@
             this.btnDeliveries.Text = "Deliveries";
             this.btnDeliveries.Click += new System.EventHandler(this.btnInventory_Click);
             // 
-            // button3
+            // btnMaterialIssuance
             // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular);
-            this.button3.Location = new System.Drawing.Point(24, 148);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(190, 45);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Settings";
+            this.btnMaterialIssuance.Font = new System.Drawing.Font("Segoe UI Light", 12F, System.Drawing.FontStyle.Regular);
+            this.btnMaterialIssuance.Location = new System.Drawing.Point(24, 148);
+            this.btnMaterialIssuance.Name = "btnMaterialIssuance";
+            this.btnMaterialIssuance.Size = new System.Drawing.Size(190, 45);
+            this.btnMaterialIssuance.TabIndex = 10;
+            this.btnMaterialIssuance.Text = "Material Issuance";
+            this.btnMaterialIssuance.Click += new System.EventHandler(this.btnMaterialIssuance_Click);
             // 
             // button4
             // 
@@ -91,7 +92,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(238, 269);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnMaterialIssuance);
             this.Controls.Add(this.btnDeliveries);
             this.Controls.Add(this.btnDetails);
             this.Controls.Add(this.label5);
@@ -108,7 +109,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnDetails;
         private System.Windows.Forms.Button btnDeliveries;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnMaterialIssuance;
         private System.Windows.Forms.Button button4;
     }
 }

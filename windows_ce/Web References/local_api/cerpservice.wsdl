@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://cerp.com/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://cerp.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">CERP Terminal Scanners Services</wsdl:documentation>
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://cerp.com/">
       <s:element name="DBConTest">
@@ -140,6 +141,22 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ReleaseMaterials">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="device_id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="request_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="items" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseMaterialsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReleaseMaterialsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="DBConTestSoapIn">
@@ -202,6 +219,12 @@
   <wsdl:message name="GetMaterialIssuanceItemsSoapOut">
     <wsdl:part name="parameters" element="tns:GetMaterialIssuanceItemsResponse" />
   </wsdl:message>
+  <wsdl:message name="ReleaseMaterialsSoapIn">
+    <wsdl:part name="parameters" element="tns:ReleaseMaterials" />
+  </wsdl:message>
+  <wsdl:message name="ReleaseMaterialsSoapOut">
+    <wsdl:part name="parameters" element="tns:ReleaseMaterialsResponse" />
+  </wsdl:message>
   <wsdl:portType name="CERPServiceSoap">
     <wsdl:operation name="DBConTest">
       <wsdl:input message="tns:DBConTestSoapIn" />
@@ -251,6 +274,12 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return Material Request Issuance Items and Lot Nos.</wsdl:documentation>
       <wsdl:input message="tns:GetMaterialIssuanceItemsSoapIn" />
       <wsdl:output message="tns:GetMaterialIssuanceItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseMaterials">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Release issued materials.
+@param items Items: [0]issue_id, [1]request_item_id.</wsdl:documentation>
+      <wsdl:input message="tns:ReleaseMaterialsSoapIn" />
+      <wsdl:output message="tns:ReleaseMaterialsSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CERPServiceSoap" type="tns:CERPServiceSoap">
@@ -338,6 +367,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetMaterialIssuanceItems">
       <soap:operation soapAction="http://cerp.com/GetMaterialIssuanceItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReleaseMaterials">
+      <soap:operation soapAction="http://cerp.com/ReleaseMaterials" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -438,13 +476,23 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ReleaseMaterials">
+      <soap12:operation soapAction="http://cerp.com/ReleaseMaterials" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CERPService">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">CERP Terminal Scanners Services</wsdl:documentation>
     <wsdl:port name="CERPServiceSoap" binding="tns:CERPServiceSoap">
-      <soap:address location="http://172.20.10.4/cerp-ws/cerpservice.asmx" />
+      <soap:address location="http://172.20.10.7/cerp-ws/cerpservice.asmx" />
     </wsdl:port>
     <wsdl:port name="CERPServiceSoap12" binding="tns:CERPServiceSoap12">
-      <soap12:address location="http://172.20.10.4/cerp-ws/cerpservice.asmx" />
+      <soap12:address location="http://172.20.10.7/cerp-ws/cerpservice.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

@@ -37,5 +37,11 @@ namespace windows_ce
             frmGet_Deliveries get_deliveries = new frmGet_Deliveries();
             get_deliveries.Show();
         }
+
+        private void btnMaterialIssuance_Click(object sender, EventArgs e)
+        {
+            frmGetMaterialIssuance1 shw = new frmGetMaterialIssuance1();
+            shw.Show();
+        }
     }
 }

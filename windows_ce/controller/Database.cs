@@ -18,5 +18,6 @@ namespace windows_ce
             get { return dbPath; }
             set { dbPath = value; }
         }
+
     }
 }

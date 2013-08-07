@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.IO;
 using System.Data.SqlServerCe;
 using windows_ce;
 
@@ -10,10 +11,37 @@ namespace kpa.Data.SqlServerCe
 {
     public class CE
     {
+        static string dbPath = "Data Source=" +
+                System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) +
+                "\\database\\temp_database.sdf;Password=";
+        public static string Connection
+        {
+            get { return dbPath; }
+            set { dbPath = value; }
+        }
+
+        public DataTable dt(string xmlString)
+        {
+            DataTable dt;
+            try
+            {
+                StringReader sr = new StringReader(xmlString);
+                DataSet ds = new DataSet();
+                dt = new DataTable("table");
+                ds.ReadXml(sr);
+                dt = ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                dt = null;
+            }
+            return dt;
+        }
+
         public DataTable DataTable(string sql)
         {
             DataTable dt;
-            SqlCeConnection sqlcon = new SqlCeConnection(Database.Connection);
+            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
             SqlCeDataAdapter sqlda = new SqlCeDataAdapter(sql, sqlcon);
             try
             {
@@ -33,7 +61,7 @@ namespace kpa.Data.SqlServerCe
         public listCollection Select(string query, int[] index)
         {
             listCollection list = new listCollection();
-            SqlCeConnection sqlcon = new SqlCeConnection(Database.Connection);
+            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
             SqlCeCommand sqlcom = new SqlCeCommand(query, sqlcon);
             SqlCeDataReader sqldr;
             try
@@ -60,7 +88,7 @@ namespace kpa.Data.SqlServerCe
 
         public bool Execute(string query)
         {
-            SqlCeConnection sqlcon = new SqlCeConnection(Database.Connection);
+            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
             SqlCeCommand sqlcom = new SqlCeCommand(query, sqlcon);
             if (sqlcon.State != ConnectionState.Closed)
             {

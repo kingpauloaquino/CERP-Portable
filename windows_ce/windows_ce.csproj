@@ -70,6 +70,7 @@
     <Compile Include="controller\formController.cs" />
     <Compile Include="controller\Get_Deliveries.cs" />
     <Compile Include="controller\Get_Details.cs" />
+    <Compile Include="controller\Get_MaterialIssuance.cs" />
     <Compile Include="controller\indexCollections.cs" />
     <Compile Include="controller\listCollection.cs" />
     <Compile Include="controller\SqlCe.cs" />
@@ -145,6 +146,12 @@
     <Compile Include="frmView.Designer.cs">
       <DependentUpon>frmView.cs</DependentUpon>
     </Compile>
+    <Compile Include="get_materialIssuance\frmGetMaterialIssuance1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="get_materialIssuance\frmGetMaterialIssuance1.Designer.cs">
+      <DependentUpon>frmGetMaterialIssuance1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmSettings.resx">
@@ -165,6 +172,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="get_deliveries\frmReceived_Deliveries.resx">
       <DependentUpon>frmReceived_Deliveries.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="get_details\frmGet_Stock.resx">
       <DependentUpon>frmGet_Stock.cs</DependentUpon>
@@ -192,6 +200,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmView.resx">
       <DependentUpon>frmView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="get_materialIssuance\frmGetMaterialIssuance1.resx">
+      <DependentUpon>frmGetMaterialIssuance1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -228,10 +240,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://172.20.10.4/cerp-ws/cerpservice.asmx">
+    <WebReferenceUrl Include="http://172.20.10.7/cerp-ws/cerpservice.asmx">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\local_api\</RelPath>
-      <UpdateFromURL>http://172.20.10.4/cerp-ws/cerpservice.asmx</UpdateFromURL>
+      <UpdateFromURL>http://172.20.10.7/cerp-ws/cerpservice.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

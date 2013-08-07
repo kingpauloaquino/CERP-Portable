@@ -57,7 +57,7 @@ namespace windows_ce
         {
             CE sqlCe = new CE();
             foreach (var l in sqlCe.Select(
-                "SELECT item_id FROM tbl_delivery_items_received WHERE item_id = " + id, // - select query
+                "SELECT did FROM tbl_delivery_items_received WHERE did = " + id, // - select query
                 new int[] { 0 } // - index columns
                 ))
             {
@@ -82,7 +82,7 @@ namespace windows_ce
                 {
                     if (!Is_Exist(Convert.ToInt64(l["id"])))
                     {
-                        query = "INSERT INTO tbl_delivery_items_received (delivery_id, item_id, mid, code, po_qty, received_qty, status) " +
+                        query = "INSERT INTO tbl_delivery_items_received (delivery_id, did, mid, code, po_qty, received_qty, status) " +
                                 "VALUES " +
                                 "('" + delivery_id + "', " +
                                 "'" + l["id"].ToString() + "', " +
@@ -95,7 +95,7 @@ namespace windows_ce
                     }
                 }
 
-                query = "SELECT delivery_id, item_id, mid, code, po_qty, received_qty " +
+                query = "SELECT delivery_id, did, mid, code, po_qty, received_qty " +
                         "FROM tbl_delivery_items_received WHERE delivery_id = " + delivery_id;
                 dt = new DataTable("table");
                 dt = sqlCe.DataTable(query);
@@ -118,7 +118,7 @@ namespace windows_ce
                            "received_qty = '" + received_qty + "', " +
                            "status = '" + status + "', " +
                            "remarks = '" + remarks + "' " +
-                           "WHERE item_id = " + id;
+                           "WHERE did = " + id;
             return sqlCe.Execute(query);
         }
 
@@ -128,7 +128,7 @@ namespace windows_ce
             CE sqlCe = new CE();
             dt = new DataTable("table");
             dt = sqlCe.DataTable("SELECT " +
-                                 "item_id, " +
+                                 "did, " +
                                  "mid, " +
                                  "received_qty, " +
                                  "status, " +
@@ -147,7 +147,7 @@ namespace windows_ce
         public static bool check_received(int id)
         {
             CE sqlCe = new CE();
-            string query = "SELECT * FROM cerpdb.delivery_items WHERE item_id = '" + id + "' AND delivery_id > 0";
+            string query = "SELECT * FROM cerpdb.delivery_items WHERE did = '" + id + "' AND delivery_id > 0";
             foreach (var l in sqlCe.Select(query, new int[] { 0 }))
             {
                 if (l != null)
