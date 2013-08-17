@@ -28,7 +28,7 @@ namespace windows_ce.local_api {
         
         /// <remarks/>
         public CERPService() {
-            this.Url = "http://172.20.10.7/cerp-ws/cerpservice.asmx";
+            this.Url = "http://192.168.0.108/cerp-ws/CERPService.asmx";
         }
         
         /// <remarks/>

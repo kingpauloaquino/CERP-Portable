@@ -22,14 +22,19 @@ namespace windows_ce
         internal static CE sqlCe;
         internal static DataTable dt;
         internal static CERPService api;
+
+        public static int miid { get; set; }
         
-        public static DataTable populate()
+        public static DataTable populate
+        {
+            get { return dt; }
+        }
+
+        public static DataTable getMaterialIssuanceItems(int id)
         {
             sqlCe = new CE();
             api = new CERPService();
-            dt = new DataTable("table");
-            dt = sqlCe.dt(api.GetMaterialIssuance());
-            return dt;
+            return sqlCe.dt(api.GetMaterialIssuanceItems(id));
         }
 
         internal static bool id(int id)
@@ -56,62 +61,92 @@ namespace windows_ce
                 int i = Convert .ToInt32(m["id"]);
                 if (!id(i))
                 {
-                    using (SqlCeConnection sqlcon1 = new SqlCeConnection(CE.Connection))
-                    {
-                        using (SqlCeCommand sqlCom1 = new SqlCeCommand("", sqlcon1))
-                        {
-                            sqlcon1.Open();
-                            sqlCom1.CommandText = "INSERT INTO GetMaterialIssuance" + 
-                            "(id, request_no, batch_no, requested_date, expected_date, remarks, completion_status) " +
-                            "VALUES (@id, @request_no, @batch_no, @requested_date, @expected_date, @remarks, @completion_status);";
-                            sqlCom1.Parameters.AddWithValue("@id",i);
-                            sqlCom1.Parameters.AddWithValue("@request_no", m["request_no"].ToString());
-                            sqlCom1.Parameters.AddWithValue("@batch_no", m["batch_no"].ToString());
-                            sqlCom1.Parameters.AddWithValue("@requested_date", config.DefaultDateTimeFormat(Convert.ToDateTime(m["requested_date"])));
-                            sqlCom1.Parameters.AddWithValue("@expected_date", config.DefaultDateTimeFormat(Convert.ToDateTime(m["expected_date"])));
-                            sqlCom1.Parameters.AddWithValue("@remarks", m["remarks"].ToString());
-                            sqlCom1.Parameters.AddWithValue("@completion_status", m["completion_status"].ToString());
-                            sqlCom1.ExecuteNonQuery();
-                            sqlcon1.Close();
-                        }
-                    }
+                    // save material issuance into local database
+                    SaveMaterialIssuance(i,
+                    m["request_no"].ToString(),
+                    m["batch_no"].ToString(),
+                    m["requested_date"].ToString(),
+                    m["expected_date"].ToString(),
+                    m["remarks"].ToString(),
+                    m["completion_status"].ToString());
 
-                    //SqlCeParameter sqlParam = new SqlCeParameter(
-                    //sqlParam .Value =
-                    string query = "";
-                    //sqlCe.Execute(query);
                     System.Threading.Thread.Sleep(100);
 
-                    dt = new DataTable("table");
-                    dt = sqlCe.dt(api.GetMaterialIssuanceItems(i));
-                    DataRow[] result2 = dt.Select();
-
-                    foreach (DataRow l in result1)
+                    // get material issuance items 
+                    DataRow[] result2 = sqlCe.dt(api.GetMaterialIssuanceItems(i)).Select();
+                    foreach (DataRow l in result2)
                     {
-                        query = "INSERT INTO GetMaterialIssuanceItems" +
-                        "(id, issue_id, code, lot_no, qty, status, address) " +
-                        "VALUES " +
-                        "( '" + i + "', " +
-                        "'" + m["issue_id"].ToString() + "', " +
-                        "'" + m["code"].ToString() + "', " +
-                        "'" + m["lot_no"].ToString() + "', " +
-                        "'" + m["qty"].ToString() + "', " +
-                        "'" + m["status"].ToString() + "', " +
-                        "'" + m["address"].ToString() + "' " +
-                        ");";
-                        //sqlCe.Execute(query);
+                        // save material issuance items into local database
+                        SaveMaterialIssuanceItems(i,
+                        l["issue_id"].ToString(),
+                        l["code"].ToString(),
+                        l["lot_no"].ToString(),
+                        l["qty"].ToString(),
+                        l["status"].ToString(),
+                        l["address"].ToString());
                     }
                 } 
             }
         }
 
-        public static DataTable getMaterialIssuanceItems(int id)
+        internal static bool SaveMaterialIssuance(int id, string r_no, string b_no, string r_date, string e_date, string remarks, string c_status)
+        {
+            bool returns = false;
+            sqlCe = new CE();
+            using (SqlCeConnection sqlCon = sqlCe.Open())
+            {
+                string query = "INSERT INTO GetMaterialIssuance" +
+                "(id, request_no, batch_no, requested_date, expected_date, remarks, completion_status) " +
+                "VALUES (@id, @request_no, @batch_no, @requested_date, @expected_date, @remarks, @completion_status);";
+                using (SqlCeCommand sqlCom = new SqlCeCommand(query, sqlCon))
+                {
+                    sqlCon.Open();
+                    sqlCom.Parameters.AddWithValue("@id", id);
+                    sqlCom.Parameters.AddWithValue("@request_no", r_no);
+                    sqlCom.Parameters.AddWithValue("@batch_no", b_no);
+                    sqlCom.Parameters.AddWithValue("@requested_date", config.DefaultDateTimeFormat(Convert.ToDateTime(r_date)));
+                    sqlCom.Parameters.AddWithValue("@expected_date", config.DefaultDateTimeFormat(Convert.ToDateTime(e_date)));
+                    sqlCom.Parameters.AddWithValue("@remarks", remarks);
+                    sqlCom.Parameters.AddWithValue("@completion_status", c_status);
+                    sqlCom.ExecuteNonQuery();
+                    sqlCon.Close();
+                    returns = true;
+                }
+            }
+            return returns;
+        }
+
+        internal static bool SaveMaterialIssuanceItems(int id, string issue_id, string code, string l_no, string qty, string status, string address)
+        {
+            bool returns = false;
+            sqlCe = new CE();
+            using (SqlCeConnection sqlCon = sqlCe.Open())
+            {
+                string query = "INSERT INTO GetMaterialIssuanceItems" +
+                "(id, issue_id, code, lot_no, qty, status, address) " +
+                "VALUES (@id, @issue_id, @code, @l_no, @qty, @status, @address);";
+                using (SqlCeCommand sqlCom = new SqlCeCommand(query, sqlCon))
+                {
+                    sqlCon.Open();
+                    sqlCom.Parameters.AddWithValue("@id", id);
+                    sqlCom.Parameters.AddWithValue("@issue_id", issue_id);
+                    sqlCom.Parameters.AddWithValue("@code", code);
+                    sqlCom.Parameters.AddWithValue("@l_no", l_no);
+                    sqlCom.Parameters.AddWithValue("@qty", qty);
+                    sqlCom.Parameters.AddWithValue("@status", status);
+                    sqlCom.Parameters.AddWithValue("@address", address);
+                    sqlCom.ExecuteNonQuery();
+                    sqlCon.Close();
+                    returns =  true;
+                }
+            }
+            return returns;
+        }
+
+        public static DataTable getMaterialItemsByBarCode(string b_code)
         {
             sqlCe = new CE();
-            api = new CERPService();
-            dt = new DataTable("table");
-            dt = sqlCe.dt(api.GetMaterialIssuanceItems(id));
-            return dt;
+            return sqlCe.DataTable("SELECT * FROM GetMaterialIssuanceItems WHERE id '" + miid + "' AND code = '" + b_code + "'");
         }
 
         public static DataGridTableStyle DataTable_Style()
@@ -134,7 +169,7 @@ namespace windows_ce
             DataGridTextBoxColumn supplier_name = new DataGridTextBoxColumn();
             supplier_name.MappingName = "completion_status";
             supplier_name.HeaderText = "Status";
-            supplier_name.Width = 108;
+            supplier_name.Width = 107;
             dtStyle.GridColumnStyles.Add(supplier_name);
             return dtStyle;
         }

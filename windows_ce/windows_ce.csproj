@@ -152,6 +152,12 @@
     <Compile Include="get_materialIssuance\frmGetMaterialIssuance1.Designer.cs">
       <DependentUpon>frmGetMaterialIssuance1.cs</DependentUpon>
     </Compile>
+    <Compile Include="get_materialIssuance\frmGetMaterialIssuance2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="get_materialIssuance\frmGetMaterialIssuance2.Designer.cs">
+      <DependentUpon>frmGetMaterialIssuance2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmSettings.resx">
@@ -206,6 +212,10 @@
       <DependentUpon>frmGetMaterialIssuance1.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="get_materialIssuance\frmGetMaterialIssuance2.resx">
+      <DependentUpon>frmGetMaterialIssuance2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -240,10 +250,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://172.20.10.7/cerp-ws/cerpservice.asmx">
+    <WebReferenceUrl Include="http://192.168.0.108/cerp-ws/CERPService.asmx">
       <UrlBehavior>Static</UrlBehavior>
       <RelPath>Web References\local_api\</RelPath>
-      <UpdateFromURL>http://172.20.10.7/cerp-ws/cerpservice.asmx</UpdateFromURL>
+      <UpdateFromURL>http://192.168.0.108/cerp-ws/CERPService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>

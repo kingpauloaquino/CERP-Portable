@@ -489,10 +489,10 @@
   <wsdl:service name="CERPService">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">CERP Terminal Scanners Services</wsdl:documentation>
     <wsdl:port name="CERPServiceSoap" binding="tns:CERPServiceSoap">
-      <soap:address location="http://172.20.10.7/cerp-ws/cerpservice.asmx" />
+      <soap:address location="http://192.168.0.108/cerp-ws/CERPService.asmx" />
     </wsdl:port>
     <wsdl:port name="CERPServiceSoap12" binding="tns:CERPServiceSoap12">
-      <soap12:address location="http://172.20.10.7/cerp-ws/cerpservice.asmx" />
+      <soap12:address location="http://192.168.0.108/cerp-ws/CERPService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

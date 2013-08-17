@@ -11,13 +11,18 @@ namespace kpa.Data.SqlServerCe
 {
     public class CE
     {
-        static string dbPath = "Data Source=" +
-                System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) +
-                "\\database\\temp_database.sdf;Password=";
-        public static string Connection
+        private static string Connection
         {
-            get { return dbPath; }
-            set { dbPath = value; }
+            get {
+                return "Data Source=" +
+                    System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) +
+                    "\\database\\temp_database.sdf;Password=";
+            }
+        }
+
+        public SqlCeConnection Open()
+        {
+            return new SqlCeConnection(Connection);
         }
 
         public DataTable dt(string xmlString)
@@ -41,15 +46,19 @@ namespace kpa.Data.SqlServerCe
         public DataTable DataTable(string sql)
         {
             DataTable dt;
-            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
-            SqlCeDataAdapter sqlda = new SqlCeDataAdapter(sql, sqlcon);
             try
             {
-                sqlcon.Open();
-                dt = new DataTable("table");
-                sqlda.Fill(dt);
-                dt = (dt.Rows.Count > 0) ? dt : null;
-                sqlcon.Close();
+                using (SqlCeConnection sqlCon = Open())
+                {
+                    using (SqlCeDataAdapter sqlDa = new SqlCeDataAdapter(sql, sqlCon))
+                    {
+                        sqlCon.Open();
+                        dt = new DataTable("table");
+                        sqlDa.Fill(dt);
+                        dt = (dt.Rows.Count > 0) ? dt : null;
+                        sqlCon.Close();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -61,23 +70,26 @@ namespace kpa.Data.SqlServerCe
         public listCollection Select(string query, int[] index)
         {
             listCollection list = new listCollection();
-            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
-            SqlCeCommand sqlcom = new SqlCeCommand(query, sqlcon);
-            SqlCeDataReader sqldr;
             try
             {
-                sqlcon.Open();
-                sqldr = sqlcom.ExecuteReader();
-                while (sqldr.Read())
+                using (SqlCeConnection sqlCon = Open())
                 {
-                    listFields l = new listFields();
-                    for (int i = 0; i < index.Length; i++)
+                    using (SqlCeCommand sqlCom = new SqlCeCommand(query, sqlCon))
                     {
-                       l.sqlDr[i] = sqldr[i].ToString();
+                        sqlCon.Open();
+                        SqlCeDataReader sqlDr = sqlCom.ExecuteReader();
+                        while (sqlDr.Read())
+                        {
+                            listFields l = new listFields();
+                            for (int i = 0; i < index.Length; i++)
+                            {
+                                l.sqlDr[i] = sqlDr[i].ToString();
+                            }
+                            list.Add(l);
+                        }
+                        sqlCon.Close();
                     }
-                    list.Add(l);
                 }
-                sqlcon.Close();
             }
             catch (Exception ex)
             {
@@ -88,16 +100,16 @@ namespace kpa.Data.SqlServerCe
 
         public bool Execute(string query)
         {
-            SqlCeConnection sqlcon = new SqlCeConnection(Connection);
-            SqlCeCommand sqlcom = new SqlCeCommand(query, sqlcon);
-            if (sqlcon.State != ConnectionState.Closed)
+            using (SqlCeConnection sqlCon = Open())
             {
-                sqlcon.Close();
+                using (SqlCeCommand sqlcom = new SqlCeCommand(query, sqlCon))
+                {
+                    sqlCon.Open();
+                    sqlcom.ExecuteNonQuery();
+                    sqlCon.Close();
+                    return true;
+                }
             }
-            sqlcon.Open();
-            sqlcom.ExecuteNonQuery();
-            sqlcon.Close();
-            return true;
         }
     }
 }

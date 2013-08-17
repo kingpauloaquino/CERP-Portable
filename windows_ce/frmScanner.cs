@@ -98,11 +98,7 @@ namespace windows_ce
         #endregion
 
         string formName = string.Empty;
-        private string FormName
-        {
-            get { return formName; }
-            set { formName = value; }
-        }
+        private string FormName { get; set; }
 
         public frmScanner(string name)
         {
@@ -130,6 +126,10 @@ namespace windows_ce
                 case "Deliveries":
                     frmGet_Deliveries get_Deliveries = new frmGet_Deliveries();
                     get_Deliveries.Show();
+                    break;
+                case "MateialIssuance":
+                    frmGetMaterialIssuance2 get_MaterialIssuance = new frmGetMaterialIssuance2();
+                    get_MaterialIssuance.Show();
                     break;
             }
 

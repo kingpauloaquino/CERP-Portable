@@ -17,26 +17,9 @@ namespace windows_ce
 {
     public class config
     {
-        static string username = string.Empty;
-        public static string Username
-        {
-            get { return username; }
-            set { username = value; }
-        }
-
-        static string bcode = string.Empty;// "ASSYCOM-075A";
-        public static string Barcode
-        {
-            get { return bcode; }
-            set { bcode = value; }
-        }
-
-        static string type = "MAT";
-        public static string Type
-        {
-            get { return type; }
-            set { type = value; }
-        }
+        public static string Username { get; set; }
+        public static string Barcode { get; set; }// "ASSYCOM-075A";
+        public static string Type { get; set; }
 
         public static string format_currency(decimal amount)
         {
